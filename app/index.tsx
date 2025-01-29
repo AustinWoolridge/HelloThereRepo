@@ -1,18 +1,15 @@
 import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from 'react';
+import FunctionalComponent from "./components/FunctionalComponent";
+
+import useRandomColor from "./hooks/useRandomColor";
+
 
 export default function Index() {
 
-    // Stores the current background color
-    const [colorBG, setColorBG] = useState('red');
+    const { colorBG, randomizeColor } = useRandomColor();
 
-    // Randomizes the background color
-    const randomizeColor = () => {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-        setColorBG(`rgb(${r}, ${g}, ${b})`);
-    }
+
 
 
 
@@ -28,6 +25,8 @@ export default function Index() {
             <View >
                 <Text>Hello There!</Text>
             </View>
+
+            <FunctionalComponent />
 
 
         </TouchableOpacity>
