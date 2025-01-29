@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { StyleSheet, View, TouchableHighlight, Button } from 'react-native';
 
 import HelloThere from "./components/HelloThere"
@@ -7,7 +7,7 @@ export default function Index() {
 
     const [colorBG, setColorBG] = useState('white');
 
-    let intervalId: any = null;
+    const intervalId = useRef<NodeJS.Timeout | null>(null);
 
     function changeColor() {
         const r = Math.floor(Math.random() * 256);
@@ -18,18 +18,21 @@ export default function Index() {
     }
 
     function startDisco() {
-        if (intervalId) {
-            clearInterval(intervalId);
+        if (intervalId.current) {
+            clearInterval(intervalId.current);
         }
-        intervalId = setInterval(changeColor, 250);
+        intervalId.current = setInterval(changeColor, 250);
         console.log("IndervalId set to: ", intervalId);
 
     }
 
     function stopDisco() {
-        clearInterval(intervalId);
-        intervalId = null;
-        console.log("IndervalId set to: ", intervalId);
+        console.log(intervalId.current);
+        if (intervalId.current) {
+            clearInterval(intervalId.current);
+            intervalId.current = null;
+
+        }
     }
 
 
